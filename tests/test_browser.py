@@ -1283,7 +1283,7 @@ keydown(100);keyup(100); // trigger the end
       self.btest('emscripten_get_now.cpp', '1', args=args)
 
   def test_write_file_in_environment_web(self):
-    self.btest('write_file.cpp', '0', args=['-s', 'ENVIRONMENT=web', '-Os', '--closure', '1'])
+    self.btest_exit('write_file.c', 0, args=['-s', 'ENVIRONMENT=web', '-Os', '--closure', '1'])
 
   @unittest.skip('Skipping due to https://github.com/emscripten-core/emscripten/issues/2770')
   def test_fflush(self):
@@ -3806,7 +3806,7 @@ window.close = function() {
 
   @requires_threads
   def test_pthread_unistd_io_bigint(self):
-    self.btest(path_from_root('tests', 'unistd', 'io.c'), expected='0', args=['-s', 'USE_PTHREADS', '-s', 'PROXY_TO_PTHREAD', '-s', 'WASM_BIGINT'])
+    self.btest_exit(path_from_root('tests', 'unistd', 'io.c'), 0, args=['-s', 'USE_PTHREADS', '-s', 'PROXY_TO_PTHREAD', '-s', 'WASM_BIGINT'])
 
   # Test that the main thread is able to use pthread_set/getspecific.
   @requires_threads
@@ -4133,10 +4133,10 @@ window.close = function() {
     self.run_browser('test.html', '', '/report_result?0')
 
   def test_utf8_textdecoder(self):
-    self.btest('benchmark_utf8.cpp', expected='0', args=['--embed-file', path_from_root('tests/utf8_corpus.txt') + '@/utf8_corpus.txt', '-s', 'EXTRA_EXPORTED_RUNTIME_METHODS=["UTF8ToString"]'])
+    self.btest_exit('benchmark_utf8.cpp', 0, args=['--embed-file', path_from_root('tests/utf8_corpus.txt') + '@/utf8_corpus.txt', '-s', 'EXTRA_EXPORTED_RUNTIME_METHODS=["UTF8ToString"]'])
 
   def test_utf16_textdecoder(self):
-    self.btest('benchmark_utf16.cpp', expected='0', args=['--embed-file', path_from_root('tests/utf16_corpus.txt') + '@/utf16_corpus.txt', '-s', 'EXTRA_EXPORTED_RUNTIME_METHODS=["UTF16ToString","stringToUTF16","lengthBytesUTF16"]'])
+    self.btest_exit('benchmark_utf16.cpp', 0, args=['--embed-file', path_from_root('tests/utf16_corpus.txt') + '@/utf16_corpus.txt', '-s', 'EXTRA_EXPORTED_RUNTIME_METHODS=["UTF16ToString","stringToUTF16","lengthBytesUTF16"]'])
 
   def test_TextDecoder(self):
     self.btest('browser_test_hello_world.c', '0', args=['-s', 'TEXTDECODER=0'])
@@ -4443,18 +4443,18 @@ window.close = function() {
   @requires_asmfs
   @requires_threads
   def test_asmfs_unistd_close(self):
-    self.btest('unistd/close.c', expected='0', args=['-s', 'ASMFS=1', '-s', 'WASM=0', '-s', 'USE_PTHREADS=1', '-s', 'FETCH_DEBUG=1'])
+    self.btest_exit(path_from_root('tests', 'unistd', 'close.c'), 0, args=['-s', 'ASMFS=1', '-s', 'WASM=0', '-s', 'USE_PTHREADS=1', '-s', 'FETCH_DEBUG=1'])
 
   @requires_asmfs
   @requires_threads
   def test_asmfs_unistd_access(self):
-    self.btest('unistd/access.c', expected='0', args=['-s', 'ASMFS=1', '-s', 'WASM=0', '-s', 'USE_PTHREADS=1', '-s', 'FETCH_DEBUG=1'])
+    self.btest_exit(path_from_root('tests', 'unistd', 'access.c'), 0, args=['-s', 'ASMFS=1', '-s', 'WASM=0', '-s', 'USE_PTHREADS=1', '-s', 'FETCH_DEBUG=1'])
 
   @requires_asmfs
   @requires_threads
   def test_asmfs_unistd_unlink(self):
     # TODO: Once symlinks are supported, remove -DNO_SYMLINK=1
-    self.btest('unistd/unlink.c', expected='0', args=['-s', 'ASMFS=1', '-s', 'WASM=0', '-s', 'USE_PTHREADS=1', '-s', 'FETCH_DEBUG=1', '-DNO_SYMLINK=1'])
+    self.btest_exit(path_from_root('tests', 'unistd', 'unlink.c'), 0, args=['-s', 'ASMFS=1', '-s', 'WASM=0', '-s', 'USE_PTHREADS=1', '-s', 'FETCH_DEBUG=1', '-DNO_SYMLINK=1'])
 
   @requires_asmfs
   @requires_threads
